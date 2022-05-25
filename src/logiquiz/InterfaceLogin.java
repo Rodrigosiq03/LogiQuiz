@@ -37,8 +37,9 @@ public class InterfaceLogin extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
         UserTextField = new javax.swing.JTextField();
         jLabel2 = new javax.swing.JLabel();
-        PassTextField = new javax.swing.JPasswordField();
+        PasswordField = new javax.swing.JPasswordField();
         BotaoConectar = new javax.swing.JButton();
+        jLabel3 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -51,23 +52,38 @@ public class InterfaceLogin extends javax.swing.JFrame {
                 BotaoRegistrarActionPerformed(evt);
             }
         });
-        getContentPane().add(BotaoRegistrar, new org.netbeans.lib.awtextra.AbsoluteConstraints(720, 560, -1, -1));
+        getContentPane().add(BotaoRegistrar, new org.netbeans.lib.awtextra.AbsoluteConstraints(730, 690, -1, -1));
 
         jLabel1.setFont(new java.awt.Font("Tahoma", 1, 36)); // NOI18N
         jLabel1.setText("Usuario");
-        getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(590, 110, -1, -1));
+        getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(590, 200, -1, -1));
 
+        UserTextField.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
+        UserTextField.setText("Insira seu usuário aqui!");
+        UserTextField.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                UserTextFieldMouseClicked(evt);
+            }
+        });
         UserTextField.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 UserTextFieldActionPerformed(evt);
             }
         });
-        getContentPane().add(UserTextField, new org.netbeans.lib.awtextra.AbsoluteConstraints(590, 170, 600, 60));
+        getContentPane().add(UserTextField, new org.netbeans.lib.awtextra.AbsoluteConstraints(590, 280, 600, 60));
 
         jLabel2.setFont(new java.awt.Font("Tahoma", 1, 36)); // NOI18N
         jLabel2.setText("Senha");
-        getContentPane().add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(590, 270, -1, -1));
-        getContentPane().add(PassTextField, new org.netbeans.lib.awtextra.AbsoluteConstraints(590, 330, 600, 60));
+        getContentPane().add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(590, 360, -1, -1));
+
+        PasswordField.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
+        PasswordField.setText("Senha...");
+        PasswordField.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                PasswordFieldMouseClicked(evt);
+            }
+        });
+        getContentPane().add(PasswordField, new org.netbeans.lib.awtextra.AbsoluteConstraints(590, 420, 600, 60));
 
         BotaoConectar.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
         BotaoConectar.setText("Conectar");
@@ -77,13 +93,20 @@ public class InterfaceLogin extends javax.swing.JFrame {
                 BotaoConectarActionPerformed(evt);
             }
         });
-        getContentPane().add(BotaoConectar, new org.netbeans.lib.awtextra.AbsoluteConstraints(720, 480, -1, -1));
+        getContentPane().add(BotaoConectar, new org.netbeans.lib.awtextra.AbsoluteConstraints(730, 570, -1, -1));
+
+        jLabel3.setFont(new java.awt.Font("Tahoma", 1, 96)); // NOI18N
+        jLabel3.setText("LogiQuiz - Login");
+        getContentPane().add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(490, 20, 800, 120));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
     private void BotaoRegistrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BotaoRegistrarActionPerformed
         // TODO add your handling code here:
+        InterfaceRegistro frame = new InterfaceRegistro();
+        frame.setVisible(true);
+        this.setVisible(false);
     }//GEN-LAST:event_BotaoRegistrarActionPerformed
 
     private void UserTextFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_UserTextFieldActionPerformed
@@ -92,17 +115,17 @@ public class InterfaceLogin extends javax.swing.JFrame {
 
     private void BotaoConectarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BotaoConectarActionPerformed
         SQLConnection con = new SQLConnection();
-        try (Connection c = con.obtemConexao()) {
-            Statement st = c.createStatement();
+        try (Connection c2 = con.obtemConexao()) {
+            Statement stmt = c2.createStatement();
             String sql = "SELECT nome, senha FROM usuario WHERE nome = ? and senha = ?";
-            PreparedStatement ps = c.prepareStatement(sql);
+            PreparedStatement ps = c2.prepareStatement(sql);
             String nome = UserTextField.getText();
-            String senha = PassTextField.getText();
+            String senha = PasswordField.getText();
             ps.setString(1, nome);
             ps.setString(2, senha);
             ResultSet rs =  ps.executeQuery();
             if(rs != null && rs.next()) {
-                if (rs.getString("nome").equals(UserTextField.getText()) && rs.getString("senha").equals(PassTextField.getText())) {
+                if (rs.getString("nome").equals(UserTextField.getText()) && rs.getString("senha").equals(PasswordField.getText())) {
                     JOptionPane.showMessageDialog(null, "cuzinho de frango");
                 }
                 else{
@@ -114,14 +137,28 @@ public class InterfaceLogin extends javax.swing.JFrame {
             }
             ps.close();
             rs.close();
-            c.close();
-            st.close();
+            c2.close();
+            stmt.close();
                     
         }
         catch (Exception e) {
             System.out.println(e);
         }
     }//GEN-LAST:event_BotaoConectarActionPerformed
+
+    private void UserTextFieldMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_UserTextFieldMouseClicked
+        // TODO add your handling code here:
+        if (UserTextField.getText().equals("Insira seu usuário aqui!")) {
+            UserTextField.setText("");
+        }
+    }//GEN-LAST:event_UserTextFieldMouseClicked
+
+    private void PasswordFieldMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_PasswordFieldMouseClicked
+        // TODO add your handling code here:
+        if (PasswordField.getText().equals("Senha...")) {
+            PasswordField.setText("");
+        }
+    }//GEN-LAST:event_PasswordFieldMouseClicked
 
     /**
      * @param args the command line arguments
@@ -161,9 +198,10 @@ public class InterfaceLogin extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton BotaoConectar;
     private javax.swing.JButton BotaoRegistrar;
-    private javax.swing.JPasswordField PassTextField;
+    private javax.swing.JPasswordField PasswordField;
     private javax.swing.JTextField UserTextField;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
     // End of variables declaration//GEN-END:variables
 }
