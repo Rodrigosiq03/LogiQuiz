@@ -119,12 +119,20 @@ public class InterfaceLogin extends javax.swing.JFrame {
         String senha = new String (PasswordField.getPassword());
         try {
             Usuario usuario = new Usuario(nome, senha);
+            Usuario admin = new Usuario(nome, senha);
             DAO dao = new DAO();
             if (dao.existe(usuario)) {
                 JOptionPane.showMessageDialog(null, "Bem vindo, " + usuario.getNome() + "!");
-                InterfaceMenu frame = new InterfaceMenu();
-                frame.setVisible(true);
-                this.setVisible(false);
+                if (dao.permissao(admin)) {
+                    InterfaceAdmin frame = new InterfaceAdmin();
+                    frame.setVisible(true);
+                    this.setVisible(false);
+                } else {
+                    InterfaceMenu frame = new InterfaceMenu();
+                    frame.setVisible(true);
+                    this.setVisible(false);
+                }
+
             }
             else {
                 JOptionPane.showMessageDialog(null, "Nome/senha inválida.");
