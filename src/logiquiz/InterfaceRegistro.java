@@ -21,6 +21,7 @@ public class InterfaceRegistro extends javax.swing.JFrame {
      */
     public InterfaceRegistro() {
         initComponents();
+        setExtendedState(InterfaceRegistro.MAXIMIZED_BOTH);
     }
 
     /**
@@ -45,11 +46,11 @@ public class InterfaceRegistro extends javax.swing.JFrame {
 
         jLabel1.setFont(new java.awt.Font("Tahoma", 1, 70)); // NOI18N
         jLabel1.setText("Senha");
-        getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(680, 560, -1, -1));
+        getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(530, 410, -1, -1));
 
         jLabel2.setFont(new java.awt.Font("Tahoma", 1, 70)); // NOI18N
         jLabel2.setText("Usuário");
-        getContentPane().add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(680, 340, -1, -1));
+        getContentPane().add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(520, 220, -1, -1));
 
         UserTextField.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
         UserTextField.setText("Crie seu usuário...");
@@ -63,7 +64,7 @@ public class InterfaceRegistro extends javax.swing.JFrame {
                 UserTextFieldActionPerformed(evt);
             }
         });
-        getContentPane().add(UserTextField, new org.netbeans.lib.awtextra.AbsoluteConstraints(680, 460, 550, 80));
+        getContentPane().add(UserTextField, new org.netbeans.lib.awtextra.AbsoluteConstraints(530, 310, 550, 80));
 
         PasswordField.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
         PasswordField.setText("Senha...");
@@ -72,7 +73,7 @@ public class InterfaceRegistro extends javax.swing.JFrame {
                 PasswordFieldMouseClicked(evt);
             }
         });
-        getContentPane().add(PasswordField, new org.netbeans.lib.awtextra.AbsoluteConstraints(680, 670, 550, 80));
+        getContentPane().add(PasswordField, new org.netbeans.lib.awtextra.AbsoluteConstraints(530, 510, 550, 80));
 
         BotaoRegistrar.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
         BotaoRegistrar.setText("Registrar");
@@ -81,7 +82,7 @@ public class InterfaceRegistro extends javax.swing.JFrame {
                 BotaoRegistrarActionPerformed(evt);
             }
         });
-        getContentPane().add(BotaoRegistrar, new org.netbeans.lib.awtextra.AbsoluteConstraints(710, 830, 210, 70));
+        getContentPane().add(BotaoRegistrar, new org.netbeans.lib.awtextra.AbsoluteConstraints(690, 640, 210, 70));
 
         BotaoVoltar.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
         BotaoVoltar.setText("Voltar");
@@ -90,10 +91,10 @@ public class InterfaceRegistro extends javax.swing.JFrame {
                 BotaoVoltarActionPerformed(evt);
             }
         });
-        getContentPane().add(BotaoVoltar, new org.netbeans.lib.awtextra.AbsoluteConstraints(1010, 830, 210, 70));
+        getContentPane().add(BotaoVoltar, new org.netbeans.lib.awtextra.AbsoluteConstraints(930, 640, 210, 70));
 
         jLabel3.setFont(new java.awt.Font("Tahoma", 1, 96)); // NOI18N
-        jLabel3.setText("LogiQUiz - Registre-se");
+        jLabel3.setText("LogiQuiz - Registre-se");
         getContentPane().add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(440, 60, 1100, 120));
 
         pack();
@@ -105,7 +106,7 @@ public class InterfaceRegistro extends javax.swing.JFrame {
 
     private void UserTextFieldMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_UserTextFieldMouseClicked
         // TODO add your handling code here:
-        if (UserTextField.getText().equals("Crie seu usuário...")){
+        if (UserTextField.getText().equals("Crie seu usuário...")) {
             UserTextField.setText("");
         }
     }//GEN-LAST:event_UserTextFieldMouseClicked
@@ -127,7 +128,7 @@ public class InterfaceRegistro extends javax.swing.JFrame {
     private void BotaoRegistrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BotaoRegistrarActionPerformed
         // TODO add your handling code here:
         SQLConnection con = new SQLConnection();
-        try (Connection c2 = con.obtemConexao()) {
+        try ( Connection c2 = con.obtemConexao()) {
             Statement stmt = c2.createStatement();
             String SQLInsert = "INSERT INTO quiz.usuario (nome, senha) VALUES (?, ?)";
             PreparedStatement ps = c2.prepareStatement(SQLInsert);
@@ -143,7 +144,7 @@ public class InterfaceRegistro extends javax.swing.JFrame {
             ps.close();
             c2.close();
             stmt.close();
-        } catch (Exception e){
+        } catch (Exception e) {
             System.out.println(e);
             JOptionPane.showMessageDialog(null, "Erro ao criar Usuario!!");
         }

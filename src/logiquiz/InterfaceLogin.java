@@ -22,6 +22,7 @@ public class InterfaceLogin extends javax.swing.JFrame {
      */
     public InterfaceLogin() {
         initComponents();
+        setExtendedState(InterfaceLogin.MAXIMIZED_BOTH);
     }
 
     /**
@@ -114,36 +115,54 @@ public class InterfaceLogin extends javax.swing.JFrame {
     }//GEN-LAST:event_UserTextFieldActionPerformed
 
     private void BotaoConectarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BotaoConectarActionPerformed
-        SQLConnection con = new SQLConnection();
-        try (Connection c2 = con.obtemConexao()) {
-            Statement stmt = c2.createStatement();
-            String sql = "SELECT nome, senha FROM usuario WHERE nome = ? and senha = ?";
-            PreparedStatement ps = c2.prepareStatement(sql);
-            String nome = UserTextField.getText();
-            String senha = PasswordField.getText();
-            ps.setString(1, nome);
-            ps.setString(2, senha);
-            ResultSet rs =  ps.executeQuery();
-            if(rs != null && rs.next()) {
-                if (rs.getString("nome").equals(UserTextField.getText()) && rs.getString("senha").equals(PasswordField.getText())) {
-                    JOptionPane.showMessageDialog(null, "cuzinho de frango");
-                }
-                else{
-                    JOptionPane.showMessageDialog(null, "piroca doce");
-                }
+        String nome = UserTextField.getText();
+        String senha = new String (PasswordField.getPassword());
+        try {
+            Usuario usuario = new Usuario(nome, senha);
+            DAO dao = new DAO();
+            if (dao.existe(usuario)) {
+                JOptionPane.showMessageDialog(null, "Bem vindo, " + usuario.getNome() + "!");
+                InterfaceMenu frame = new InterfaceMenu();
+                frame.setVisible(true);
+                this.setVisible(false);
             }
             else {
-                JOptionPane.showMessageDialog(null, "piroca doce");
+                JOptionPane.showMessageDialog(null, "Nome/senha inválida.");
             }
-            ps.close();
-            rs.close();
-            c2.close();
-            stmt.close();
-                    
         }
         catch (Exception e) {
             System.out.println(e);
+            JOptionPane.showMessageDialog(null, "Erro");
         }
+//        SQLConnection con = new SQLConnection();
+//        try (Connection c2 = con.obtemConexao()) {
+//            Statement stmt = c2.createStatement();
+//            String sql = "SELECT nome, senha FROM usuario WHERE nome = ? and senha = ?";
+//            PreparedStatement ps = c2.prepareStatement(sql);
+//            
+//            ps.setString(1, nome);
+//            ps.setString(2, senha);
+//            ResultSet rs =  ps.executeQuery();
+//            if(rs != null && rs.next()) {
+//                if (rs.getString("nome").equals(UserTextField.getText()) && rs.getString("senha").equals(PasswordField.getText())) {
+//                    JOptionPane.showMessageDialog(null, "Bem vindo, " + nome + "!");
+//                }
+//                else{
+//                    JOptionPane.showMessageDialog(null, "Erro");
+//                }
+//            }
+//            else {
+//                JOptionPane.showMessageDialog(null, "Erro");
+//            }
+//            ps.close();
+//            rs.close();
+//            c2.close();
+//            stmt.close();
+//                    
+//        }
+//        catch (Exception e) {
+//            System.out.println(e);
+//        }
     }//GEN-LAST:event_BotaoConectarActionPerformed
 
     private void UserTextFieldMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_UserTextFieldMouseClicked

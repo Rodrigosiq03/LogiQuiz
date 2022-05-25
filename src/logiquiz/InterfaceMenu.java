@@ -15,6 +15,7 @@ public class InterfaceMenu extends javax.swing.JFrame {
      */
     public InterfaceMenu() {
         initComponents();
+        setExtendedState(InterfaceLogin.MAXIMIZED_BOTH);
     }
 
     /**
