@@ -87,5 +87,25 @@ public class DAO {
         return aux;
 
     }
+    
+    public int pontos(String nome) {
+        int pontos = 0;
+        String sqlpontos = "SELECT pontos FROM usuario WHERE nome = ?";
+        SQLConnection con = new SQLConnection();
+        try (Connection c2 = con.obtemConexao()) {
+            PreparedStatement ps = c2.prepareStatement(sqlpontos);
+            ps.setString(1, nome);
+            ResultSet rs = ps.executeQuery();
+            if (rs.next()) {
+                pontos = rs.getInt(1);
+            }
+            else {
+                pontos = 0;
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return pontos;
+    }
 
 }

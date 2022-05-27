@@ -142,7 +142,7 @@ public class InterfaceLogin extends javax.swing.JFrame {
                     frame.setVisible(true);
                     this.setVisible(false);
                 } else {
-                    InterfaceMenu frame = new InterfaceMenu();
+                    InterfaceMenu frame = new InterfaceMenu(usuario);
                     frame.setVisible(true);
                     this.setVisible(false);
                 }

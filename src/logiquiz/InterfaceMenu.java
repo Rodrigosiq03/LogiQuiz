@@ -9,11 +9,12 @@ package logiquiz;
  * @author rodri
  */
 public class InterfaceMenu extends javax.swing.JFrame {
-
+    Usuario menu;
     /**
      * Creates new form InterfaceMenu
      */
-    public InterfaceMenu() {
+    public InterfaceMenu(Usuario usuario) {
+        this.menu = usuario;
         initComponents();
         setExtendedState(InterfaceLogin.MAXIMIZED_BOTH);
     }
@@ -51,7 +52,8 @@ public class InterfaceMenu extends javax.swing.JFrame {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
-        InterfacePerguntas frame = new InterfacePerguntas();
+        System.out.println(menu.getNome());
+        InterfacePerguntas frame = new InterfacePerguntas(this.menu);
         frame.setVisible(true);
         this.setVisible(false);
     }//GEN-LAST:event_jButton1ActionPerformed
@@ -86,7 +88,7 @@ public class InterfaceMenu extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new InterfaceMenu().setVisible(true);
+                //new InterfaceMenu(usuario).setVisible(true);
             }
         });
     }

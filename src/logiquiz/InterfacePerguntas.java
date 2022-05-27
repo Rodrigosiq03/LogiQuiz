@@ -21,13 +21,15 @@ import javax.swing.JOptionPane;
  * @author rodri
  */
 public class InterfacePerguntas extends javax.swing.JFrame {
+    Usuario perguntas;
 
-    public InterfacePerguntas() {
+    public InterfacePerguntas(Usuario usuario) {
         initComponents();
+        this.perguntas = usuario;
         setExtendedState(InterfaceLogin.MAXIMIZED_BOTH);
         Random random = new Random();
 
-        int id = random.nextInt(51);
+        int id = random.nextInt(50)+1;
         SQLConnection con = new SQLConnection();
         try ( Connection c2 = con.obtemConexao()) {
             DAO dao = new DAO();
@@ -155,11 +157,16 @@ public class InterfacePerguntas extends javax.swing.JFrame {
 
     private void ALternativaCButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_ALternativaCButtonMouseClicked
         // TODO add your handling code here:
-        
-        String sqlalternativacerta = "UPDATE `quiz`.`usuario` SET `pontos` = '10' WHERE idUsuario = 1;";
+        DAO dao = new DAO();
         SQLConnection con = new SQLConnection();
+        String nome = perguntas.getNome();
+        int pontos = dao.pontos(nome);
+        String sqlalternativacerta = "UPDATE `db_logquiz`.`usuario` SET `pontos` = ? WHERE nome = ?;";
+        pontos = pontos + 10;
         try ( Connection c2 = con.obtemConexao()) {
             PreparedStatement ps = c2.prepareStatement(sqlalternativacerta);
+            ps.setInt(1, pontos);
+            ps.setString(2, nome);
             ps.executeUpdate();
             ps.close();
         } catch (SQLException ex) {
@@ -203,7 +210,7 @@ public class InterfacePerguntas extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new InterfacePerguntas().setVisible(true);
+                //new InterfacePerguntas().setVisible(true);
 
             }
         });
