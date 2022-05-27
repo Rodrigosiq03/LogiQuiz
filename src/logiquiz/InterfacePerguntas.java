@@ -10,7 +10,11 @@ import java.sql.ResultSet;
 import java.sql.Statement;
 import java.sql.DriverManager;
 import java.sql.SQLException;
-
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.List;
+import java.util.Random;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -18,12 +22,41 @@ import java.sql.SQLException;
  */
 public class InterfacePerguntas extends javax.swing.JFrame {
 
-    /**
-     * Creates new form InterfacePerguntas
-     */
     public InterfacePerguntas() {
         initComponents();
         setExtendedState(InterfaceLogin.MAXIMIZED_BOTH);
+        Random random = new Random();
+
+        int id = random.nextInt(51);
+        SQLConnection con = new SQLConnection();
+        try ( Connection c2 = con.obtemConexao()) {
+            DAO dao = new DAO();
+            String enunciado = dao.enunciado(id);
+
+            Integer[] idArray = {-3, -2, -1, 0};
+            List<Integer> intList = Arrays.asList(idArray);
+            Collections.shuffle(intList);
+            intList.toArray(idArray);
+            
+            
+            for (int i = 0;i<4;i++) {
+                idArray[i] = (id*4) + idArray[i];
+            }
+            
+            Enunciado.setText("<html><p style=\"width:600px\">" + enunciado + "</p></html>");
+            String alternativaA = dao.alternativas(idArray[0]);
+            System.out.println(alternativaA);
+            AlternativaA.setText("<html><p style=\"width:600px\">" + alternativaA + "</p></html>");
+            String alternativaB = dao.alternativas(idArray[1]);
+            AlternativaB.setText("<html><p style=\"width:600px\">" + alternativaB + "</p></html>");
+            String alternativaC = dao.alternativas(idArray[2]);
+            AlternativaC.setText("<html><p style=\"width:600px\">" + alternativaC + "</p></html>");
+            String alternativaD = dao.alternativas(idArray[3]);
+            AlternativaD.setText("<html><p style=\"width:600px\">" + alternativaD + "</p></html>");
+
+        } catch (Exception e) {
+            System.out.println(e);
+        }
     }
 
     /**
@@ -35,38 +68,40 @@ public class InterfacePerguntas extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jLabel1 = new javax.swing.JLabel();
+        PerguntaN = new javax.swing.JLabel();
         AlternativaAButton = new javax.swing.JButton();
-        jLabel2 = new javax.swing.JLabel();
-        jLabel3 = new javax.swing.JLabel();
+        Enunciado = new javax.swing.JLabel();
+        AlternativaA = new javax.swing.JLabel();
         AlternativaBButton = new javax.swing.JButton();
-        jLabel4 = new javax.swing.JLabel();
+        AlternativaB = new javax.swing.JLabel();
         ALternativaCButton = new javax.swing.JButton();
-        jLabel5 = new javax.swing.JLabel();
+        AlternativaC = new javax.swing.JLabel();
         AlternativaDButton = new javax.swing.JButton();
-        jLabel6 = new javax.swing.JLabel();
-        jLabel7 = new javax.swing.JLabel();
-        jLabel8 = new javax.swing.JLabel();
-        jLabel9 = new javax.swing.JLabel();
+        AlternativaD = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jLabel1.setFont(new java.awt.Font("Tahoma", 1, 36)); // NOI18N
-        jLabel1.setText("Pergunta 1");
-        getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(790, 80, -1, -1));
+        PerguntaN.setFont(new java.awt.Font("Tahoma", 1, 36)); // NOI18N
+        PerguntaN.setText("Pergunta 1");
+        getContentPane().add(PerguntaN, new org.netbeans.lib.awtextra.AbsoluteConstraints(790, 80, -1, -1));
 
         AlternativaAButton.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
         AlternativaAButton.setText("Alternativa A");
-        getContentPane().add(AlternativaAButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(490, 470, 180, 60));
+        AlternativaAButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                AlternativaAButtonActionPerformed(evt);
+            }
+        });
+        getContentPane().add(AlternativaAButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(460, 250, 180, 60));
 
-        jLabel2.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
-        jLabel2.setText("Em python, qual será o valor de r, de acordo com o código abaixo:");
-        getContentPane().add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(520, 130, -1, 80));
+        Enunciado.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
+        Enunciado.setText("Em python, qual será o valor de r, de acordo com o código abaixo:");
+        getContentPane().add(Enunciado, new org.netbeans.lib.awtextra.AbsoluteConstraints(520, 130, -1, 80));
 
-        jLabel3.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
-        jLabel3.setText("a) -10");
-        getContentPane().add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(550, 410, -1, -1));
+        AlternativaA.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+        AlternativaA.setText("a) -10");
+        getContentPane().add(AlternativaA, new org.netbeans.lib.awtextra.AbsoluteConstraints(650, 270, -1, -1));
 
         AlternativaBButton.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
         AlternativaBButton.setText("Alternativa B");
@@ -75,11 +110,11 @@ public class InterfacePerguntas extends javax.swing.JFrame {
                 AlternativaBButtonActionPerformed(evt);
             }
         });
-        getContentPane().add(AlternativaBButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(710, 470, 180, 60));
+        getContentPane().add(AlternativaBButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(460, 330, 180, 60));
 
-        jLabel4.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
-        jLabel4.setText("b) 15");
-        getContentPane().add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(770, 410, -1, -1));
+        AlternativaB.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+        AlternativaB.setText("b) 15");
+        getContentPane().add(AlternativaB, new org.netbeans.lib.awtextra.AbsoluteConstraints(650, 350, -1, -1));
 
         ALternativaCButton.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
         ALternativaCButton.setText("Alternativa C");
@@ -93,31 +128,19 @@ public class InterfacePerguntas extends javax.swing.JFrame {
                 ALternativaCButtonActionPerformed(evt);
             }
         });
-        getContentPane().add(ALternativaCButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(950, 470, 180, 60));
+        getContentPane().add(ALternativaCButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(460, 410, 180, 60));
 
-        jLabel5.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
-        jLabel5.setText("c) 25");
-        getContentPane().add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(1010, 410, -1, -1));
+        AlternativaC.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+        AlternativaC.setText("c) 25");
+        getContentPane().add(AlternativaC, new org.netbeans.lib.awtextra.AbsoluteConstraints(650, 430, -1, -1));
 
         AlternativaDButton.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
         AlternativaDButton.setText("Alternativa D");
-        getContentPane().add(AlternativaDButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(1180, 470, 180, 60));
+        getContentPane().add(AlternativaDButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(460, 490, 180, 60));
 
-        jLabel6.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
-        jLabel6.setText("d) 30");
-        getContentPane().add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(1240, 410, -1, -1));
-
-        jLabel7.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
-        jLabel7.setText("n = 5");
-        getContentPane().add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(560, 220, -1, -1));
-
-        jLabel8.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
-        jLabel8.setText("n1 = 5");
-        getContentPane().add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(560, 250, -1, -1));
-
-        jLabel9.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
-        jLabel9.setText("r = n * n1");
-        getContentPane().add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(560, 280, -1, -1));
+        AlternativaD.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+        AlternativaD.setText("d) 30");
+        getContentPane().add(AlternativaD, new org.netbeans.lib.awtextra.AbsoluteConstraints(650, 510, -1, -1));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -132,17 +155,23 @@ public class InterfacePerguntas extends javax.swing.JFrame {
 
     private void ALternativaCButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_ALternativaCButtonMouseClicked
         // TODO add your handling code here:
-        String sqlalternativacerta = "UPDATE `quiz`.`usuario` SET `pontos` = '10' WHERE (`idusuario` = '3');";
+        
+        String sqlalternativacerta = "UPDATE `quiz`.`usuario` SET `pontos` = '10' WHERE idUsuario = 1;";
         SQLConnection con = new SQLConnection();
-        try (Connection c2 = con.obtemConexao()) {
+        try ( Connection c2 = con.obtemConexao()) {
             PreparedStatement ps = c2.prepareStatement(sqlalternativacerta);
             ps.executeUpdate();
             ps.close();
         } catch (SQLException ex) {
             System.out.println(ex);
-        } 
-         
+        }
+
     }//GEN-LAST:event_ALternativaCButtonMouseClicked
+
+    private void AlternativaAButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AlternativaAButtonActionPerformed
+        
+
+    }//GEN-LAST:event_AlternativaAButtonActionPerformed
 
     /**
      * @param args the command line arguments
@@ -175,23 +204,21 @@ public class InterfacePerguntas extends javax.swing.JFrame {
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
                 new InterfacePerguntas().setVisible(true);
+
             }
         });
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton ALternativaCButton;
+    private javax.swing.JLabel AlternativaA;
     private javax.swing.JButton AlternativaAButton;
+    private javax.swing.JLabel AlternativaB;
     private javax.swing.JButton AlternativaBButton;
+    private javax.swing.JLabel AlternativaC;
+    private javax.swing.JLabel AlternativaD;
     private javax.swing.JButton AlternativaDButton;
-    private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabel4;
-    private javax.swing.JLabel jLabel5;
-    private javax.swing.JLabel jLabel6;
-    private javax.swing.JLabel jLabel7;
-    private javax.swing.JLabel jLabel8;
-    private javax.swing.JLabel jLabel9;
+    private javax.swing.JLabel Enunciado;
+    private javax.swing.JLabel PerguntaN;
     // End of variables declaration//GEN-END:variables
 }

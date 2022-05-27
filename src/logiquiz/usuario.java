@@ -7,7 +7,7 @@ import java.sql.Statement;
 import java.sql.DriverManager;
 
 public class Usuario {
-
+    
     private String nome;
     private String senha;
 

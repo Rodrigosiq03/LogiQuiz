@@ -17,10 +17,22 @@ import java.sql.DriverManager;
  */
 public class InterfaceLogin extends javax.swing.JFrame {
 
+    public static String Username;
+    public static String Password;
     /**
      * Creates new form InterfaceLogin
      */
+
+    public void InsertData() {
+        Username = UserTextField.getText();
+        Password = PasswordField.getText();
+    }
+    public String getNome() {
+        InsertData();
+        return Username;
+    }
     public InterfaceLogin() {
+
         initComponents();
         setExtendedState(InterfaceLogin.MAXIMIZED_BOTH);
     }
@@ -116,11 +128,13 @@ public class InterfaceLogin extends javax.swing.JFrame {
 
     private void BotaoConectarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BotaoConectarActionPerformed
         String nome = UserTextField.getText();
-        String senha = new String (PasswordField.getPassword());
+        String senha = new String(PasswordField.getPassword());
+        InsertData();
         try {
             Usuario usuario = new Usuario(nome, senha);
             Usuario admin = new Usuario(nome, senha);
             DAO dao = new DAO();
+
             if (dao.existe(usuario)) {
                 JOptionPane.showMessageDialog(null, "Bem vindo, " + usuario.getNome() + "!");
                 if (dao.permissao(admin)) {
@@ -133,12 +147,10 @@ public class InterfaceLogin extends javax.swing.JFrame {
                     this.setVisible(false);
                 }
 
-            }
-            else {
+            } else {
                 JOptionPane.showMessageDialog(null, "Nome/senha inválida.");
             }
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             System.out.println(e);
             JOptionPane.showMessageDialog(null, "Erro");
         }

@@ -130,7 +130,7 @@ public class InterfaceRegistro extends javax.swing.JFrame {
         SQLConnection con = new SQLConnection();
         try ( Connection c2 = con.obtemConexao()) {
             Statement stmt = c2.createStatement();
-            String SQLInsert = "INSERT INTO quiz.usuario (nome, senha) VALUES (?, ?)";
+            String SQLInsert = "INSERT INTO db_logquiz.usuario (nome, senha) VALUES (?, ?)";
             PreparedStatement ps = c2.prepareStatement(SQLInsert);
             String nome = UserTextField.getText();
             String senha = PasswordField.getText();
