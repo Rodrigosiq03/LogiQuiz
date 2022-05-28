@@ -16,12 +16,13 @@ import java.util.List;
 import java.util.Random;
 import javax.swing.JOptionPane;
 
-/**
- *
- * @author rodri
- */
 public class InterfacePerguntas extends javax.swing.JFrame {
     Usuario perguntas;
+    String alternativaA;
+    String alternativaB;
+    String alternativaC;
+    String alternativaD;
+    
 
     public InterfacePerguntas(Usuario usuario) {
         initComponents();
@@ -46,15 +47,19 @@ public class InterfacePerguntas extends javax.swing.JFrame {
             }
             
             Enunciado.setText("<html><p style=\"width:600px\">" + enunciado + "</p></html>");
-            String alternativaA = dao.alternativas(idArray[0]);
+            alternativaA = dao.alternativas(idArray[0]);
+            this.alternativaA = dao.alternativas(idArray[0]);
             System.out.println(alternativaA);
             AlternativaA.setText("<html><p style=\"width:600px\">" + alternativaA + "</p></html>");
-            String alternativaB = dao.alternativas(idArray[1]);
+            alternativaB = dao.alternativas(idArray[1]);
+            this.alternativaB = dao.alternativas(idArray[1]);
             AlternativaB.setText("<html><p style=\"width:600px\">" + alternativaB + "</p></html>");
-            String alternativaC = dao.alternativas(idArray[2]);
+            alternativaC = dao.alternativas(idArray[2]);
+            this.alternativaC = dao.alternativas(idArray[2]);
             AlternativaC.setText("<html><p style=\"width:600px\">" + alternativaC + "</p></html>");
-            String alternativaD = dao.alternativas(idArray[3]);
+            alternativaD = dao.alternativas(idArray[3]);
             AlternativaD.setText("<html><p style=\"width:600px\">" + alternativaD + "</p></html>");
+            this.alternativaD = dao.alternativas(idArray[3]);
 
         } catch (Exception e) {
             System.out.println(e);
@@ -76,7 +81,7 @@ public class InterfacePerguntas extends javax.swing.JFrame {
         AlternativaA = new javax.swing.JLabel();
         AlternativaBButton = new javax.swing.JButton();
         AlternativaB = new javax.swing.JLabel();
-        ALternativaCButton = new javax.swing.JButton();
+        AlternativaCButton = new javax.swing.JButton();
         AlternativaC = new javax.swing.JLabel();
         AlternativaDButton = new javax.swing.JButton();
         AlternativaD = new javax.swing.JLabel();
@@ -118,19 +123,19 @@ public class InterfacePerguntas extends javax.swing.JFrame {
         AlternativaB.setText("b) 15");
         getContentPane().add(AlternativaB, new org.netbeans.lib.awtextra.AbsoluteConstraints(650, 350, -1, -1));
 
-        ALternativaCButton.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
-        ALternativaCButton.setText("Alternativa C");
-        ALternativaCButton.addMouseListener(new java.awt.event.MouseAdapter() {
+        AlternativaCButton.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+        AlternativaCButton.setText("Alternativa C");
+        AlternativaCButton.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                ALternativaCButtonMouseClicked(evt);
+                AlternativaCButtonMouseClicked(evt);
             }
         });
-        ALternativaCButton.addActionListener(new java.awt.event.ActionListener() {
+        AlternativaCButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                ALternativaCButtonActionPerformed(evt);
+                AlternativaCButtonActionPerformed(evt);
             }
         });
-        getContentPane().add(ALternativaCButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(460, 410, 180, 60));
+        getContentPane().add(AlternativaCButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(460, 410, 180, 60));
 
         AlternativaC.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
         AlternativaC.setText("c) 25");
@@ -138,6 +143,11 @@ public class InterfacePerguntas extends javax.swing.JFrame {
 
         AlternativaDButton.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
         AlternativaDButton.setText("Alternativa D");
+        AlternativaDButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                AlternativaDButtonActionPerformed(evt);
+            }
+        });
         getContentPane().add(AlternativaDButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(460, 490, 180, 60));
 
         AlternativaD.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
@@ -148,37 +158,65 @@ public class InterfacePerguntas extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void AlternativaBButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AlternativaBButtonActionPerformed
-        // TODO add your handling code here:
+        DAO dao = new DAO();
+        System.out.println(alternativaB);
+        if(dao.isRight(this.alternativaB) == 1) {
+            dao.pontuar(perguntas);
+            JOptionPane.showMessageDialog(null, "Acertou!");
+        }
+        else {
+            JOptionPane.showMessageDialog(null, "Errou!");
+        }
     }//GEN-LAST:event_AlternativaBButtonActionPerformed
 
-    private void ALternativaCButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ALternativaCButtonActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_ALternativaCButtonActionPerformed
-
-    private void ALternativaCButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_ALternativaCButtonMouseClicked
-        // TODO add your handling code here:
+    private void AlternativaCButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AlternativaCButtonActionPerformed
         DAO dao = new DAO();
-        SQLConnection con = new SQLConnection();
-        String nome = perguntas.getNome();
-        int pontos = dao.pontos(nome);
-        String sqlalternativacerta = "UPDATE `db_logquiz`.`usuario` SET `pontos` = ? WHERE nome = ?;";
-        pontos = pontos + 10;
-        try ( Connection c2 = con.obtemConexao()) {
-            PreparedStatement ps = c2.prepareStatement(sqlalternativacerta);
-            ps.setInt(1, pontos);
-            ps.setString(2, nome);
-            ps.executeUpdate();
-            ps.close();
-        } catch (SQLException ex) {
-            System.out.println(ex);
+        System.out.println(alternativaC);
+        if(dao.isRight(this.alternativaC) == 1) {
+            dao.pontuar(perguntas);
+            JOptionPane.showMessageDialog(null, "Acertou!");
+        }
+        else {
+            JOptionPane.showMessageDialog(null, "Errou!");
+        }
+    }//GEN-LAST:event_AlternativaCButtonActionPerformed
+
+    private void AlternativaCButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_AlternativaCButtonMouseClicked
+        DAO dao = new DAO();
+        if(dao.isRight(this.alternativaC) == 1) {
+            dao.pontuar(perguntas);
+            JOptionPane.showMessageDialog(null, "Acertou!");
+        }
+        else {
+            JOptionPane.showMessageDialog(null, "Errou!");
         }
 
-    }//GEN-LAST:event_ALternativaCButtonMouseClicked
+    }//GEN-LAST:event_AlternativaCButtonMouseClicked
 
     private void AlternativaAButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AlternativaAButtonActionPerformed
-        
+        DAO dao = new DAO();
+        System.out.println(alternativaA);
+        if(dao.isRight(this.alternativaA) == 1) {
+            dao.pontuar(perguntas);
+            JOptionPane.showMessageDialog(null, "Acertou!");
+        }
+        else {
+            JOptionPane.showMessageDialog(null, "Errou!");
+        }
 
     }//GEN-LAST:event_AlternativaAButtonActionPerformed
+
+    private void AlternativaDButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AlternativaDButtonActionPerformed
+        DAO dao = new DAO();
+        System.out.println(alternativaD);
+        if(dao.isRight(this.alternativaD) == 1) {
+            dao.pontuar(perguntas);
+            JOptionPane.showMessageDialog(null, "Acertou!");
+        }
+        else {
+            JOptionPane.showMessageDialog(null, "Errou!");
+        }
+    }//GEN-LAST:event_AlternativaDButtonActionPerformed
 
     /**
      * @param args the command line arguments
@@ -217,12 +255,12 @@ public class InterfacePerguntas extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton ALternativaCButton;
     private javax.swing.JLabel AlternativaA;
     private javax.swing.JButton AlternativaAButton;
     private javax.swing.JLabel AlternativaB;
     private javax.swing.JButton AlternativaBButton;
     private javax.swing.JLabel AlternativaC;
+    private javax.swing.JButton AlternativaCButton;
     private javax.swing.JLabel AlternativaD;
     private javax.swing.JButton AlternativaDButton;
     private javax.swing.JLabel Enunciado;

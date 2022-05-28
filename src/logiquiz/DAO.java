@@ -5,6 +5,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.Statement;
 import java.sql.DriverManager;
+import java.sql.SQLException;
 import java.util.ArrayList;
 
 public class DAO {
@@ -76,7 +77,7 @@ public class DAO {
             ResultSet rs = ps.executeQuery();
             if (rs.next()) {
                 String alternativa = rs.getString(1);
-                aux = String.format(aux + alternativa + "\n");
+                aux = String.format(aux + alternativa);
             } else {
                 String alternativa = "a";
             }
@@ -106,6 +107,44 @@ public class DAO {
             e.printStackTrace();
         }
         return pontos;
+    }
+    public void pontuar(Usuario usuario) {
+        DAO dao = new DAO();
+        SQLConnection con = new SQLConnection();
+        String nome = usuario.getNome();
+        int pontos = dao.pontos(nome);
+        String sqlalternativacerta = "UPDATE `db_logquiz`.`usuario` SET `pontos` = ? WHERE nome = ?;";
+        pontos = pontos + 10;
+        try ( Connection c2 = con.obtemConexao()) {
+            PreparedStatement ps = c2.prepareStatement(sqlalternativacerta);
+            ps.setInt(1, pontos);
+            ps.setString(2, nome);
+            ps.executeUpdate();
+            ps.close();
+        } catch (SQLException ex) {
+            System.out.println(ex);
+        }
+    }
+    
+    
+    public int isRight(String alternativa) {
+        SQLConnection con = new SQLConnection();
+        int isRight = 0;
+        String selectIsRight = "SELECT correta from alternativa where alternativa = ?";
+        try (Connection c2 = con.obtemConexao()) {
+            PreparedStatement ps = c2.prepareStatement(selectIsRight);
+            ps.setString(1, alternativa);
+            ResultSet rs = ps.executeQuery();
+            if (rs.next()) {
+                isRight = rs.getInt("correta");
+                System.out.println(isRight);
+            }
+        }
+        catch (Exception e) {
+            e.printStackTrace();
+        }
+        System.out.println(isRight);
+        return isRight;
     }
 
 }
