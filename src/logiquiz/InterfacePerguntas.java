@@ -22,19 +22,22 @@ public class InterfacePerguntas extends javax.swing.JFrame {
     String alternativaB;
     String alternativaC;
     String alternativaD;
-    
+    int idQ;
+    int contadorQ;
 
-    public InterfacePerguntas(Usuario usuario) {
+    public InterfacePerguntas(Usuario usuario, int numPergunta) {
         initComponents();
         this.perguntas = usuario;
         setExtendedState(InterfaceLogin.MAXIMIZED_BOTH);
         Random random = new Random();
-
-        int id = random.nextInt(50)+1;
+        idQ = random.nextInt(50)+1;
+        this.idQ = idQ;
+        this.contadorQ = numPergunta;
+        PerguntaN.setText("Pergunta " + this.contadorQ);
         SQLConnection con = new SQLConnection();
         try ( Connection c2 = con.obtemConexao()) {
             DAO dao = new DAO();
-            String enunciado = dao.enunciado(id);
+            String enunciado = dao.enunciado(idQ);
 
             Integer[] idArray = {-3, -2, -1, 0};
             List<Integer> intList = Arrays.asList(idArray);
@@ -43,7 +46,7 @@ public class InterfacePerguntas extends javax.swing.JFrame {
             
             
             for (int i = 0;i<4;i++) {
-                idArray[i] = (id*4) + idArray[i];
+                idArray[i] = (idQ*4) + idArray[i];
             }
             
             Enunciado.setText("<html><p style=\"width:600px\">" + enunciado + "</p></html>");
@@ -85,12 +88,13 @@ public class InterfacePerguntas extends javax.swing.JFrame {
         AlternativaC = new javax.swing.JLabel();
         AlternativaDButton = new javax.swing.JButton();
         AlternativaD = new javax.swing.JLabel();
+        VoltarButton = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         PerguntaN.setFont(new java.awt.Font("Tahoma", 1, 36)); // NOI18N
-        PerguntaN.setText("Pergunta 1");
+        PerguntaN.setText("Pergunta N");
         getContentPane().add(PerguntaN, new org.netbeans.lib.awtextra.AbsoluteConstraints(790, 80, -1, -1));
 
         AlternativaAButton.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
@@ -103,7 +107,7 @@ public class InterfacePerguntas extends javax.swing.JFrame {
         getContentPane().add(AlternativaAButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(460, 250, 180, 60));
 
         Enunciado.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
-        Enunciado.setText("Em python, qual será o valor de r, de acordo com o código abaixo:");
+        Enunciado.setText("enunciado");
         getContentPane().add(Enunciado, new org.netbeans.lib.awtextra.AbsoluteConstraints(520, 130, -1, 80));
 
         AlternativaA.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
@@ -154,41 +158,68 @@ public class InterfacePerguntas extends javax.swing.JFrame {
         AlternativaD.setText("d) 30");
         getContentPane().add(AlternativaD, new org.netbeans.lib.awtextra.AbsoluteConstraints(650, 510, -1, -1));
 
+        VoltarButton.setFont(new java.awt.Font("Tahoma", 1, 36)); // NOI18N
+        VoltarButton.setText("<");
+        VoltarButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                VoltarButtonActionPerformed(evt);
+            }
+        });
+        getContentPane().add(VoltarButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 30, 80, 70));
+
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
     private void AlternativaBButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AlternativaBButtonActionPerformed
         DAO dao = new DAO();
         System.out.println(alternativaB);
-        if(dao.isRight(this.alternativaB) == 1) {
+        if(dao.isRight(this.alternativaB, this.idQ) == 1) {
             dao.pontuar(perguntas);
             JOptionPane.showMessageDialog(null, "Acertou!");
+            int contador = this.contadorQ + 1;
+            InterfacePerguntas frame = new InterfacePerguntas(this.perguntas, contador);
+            frame.setVisible(true);
+            this.setVisible(false);
         }
         else {
             JOptionPane.showMessageDialog(null, "Errou!");
+            String gabarito = dao.gabarito(idQ);
+            JOptionPane.showMessageDialog(null, gabarito);
         }
     }//GEN-LAST:event_AlternativaBButtonActionPerformed
 
     private void AlternativaCButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AlternativaCButtonActionPerformed
         DAO dao = new DAO();
         System.out.println(alternativaC);
-        if(dao.isRight(this.alternativaC) == 1) {
+        if(dao.isRight(this.alternativaC, this.idQ) == 1) {
             dao.pontuar(perguntas);
             JOptionPane.showMessageDialog(null, "Acertou!");
+            int contador = this.contadorQ + 1;
+            InterfacePerguntas frame = new InterfacePerguntas(this.perguntas, contador);
+            frame.setVisible(true);
+            this.setVisible(false);
         }
         else {
             JOptionPane.showMessageDialog(null, "Errou!");
+            String gabarito = dao.gabarito(idQ);
+            JOptionPane.showMessageDialog(null, gabarito);
         }
     }//GEN-LAST:event_AlternativaCButtonActionPerformed
 
     private void AlternativaCButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_AlternativaCButtonMouseClicked
         DAO dao = new DAO();
-        if(dao.isRight(this.alternativaC) == 1) {
+        if(dao.isRight(this.alternativaC, this.idQ) == 1) {
             dao.pontuar(perguntas);
             JOptionPane.showMessageDialog(null, "Acertou!");
+            int contador = this.contadorQ + 1;
+            InterfacePerguntas frame = new InterfacePerguntas(this.perguntas, contador);
+            frame.setVisible(true);
+            this.setVisible(false);
         }
         else {
             JOptionPane.showMessageDialog(null, "Errou!");
+            String gabarito = dao.gabarito(idQ);
+            JOptionPane.showMessageDialog(null, gabarito);
         }
 
     }//GEN-LAST:event_AlternativaCButtonMouseClicked
@@ -196,12 +227,18 @@ public class InterfacePerguntas extends javax.swing.JFrame {
     private void AlternativaAButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AlternativaAButtonActionPerformed
         DAO dao = new DAO();
         System.out.println(alternativaA);
-        if(dao.isRight(this.alternativaA) == 1) {
+        if(dao.isRight(this.alternativaA, this.idQ) == 1) {
             dao.pontuar(perguntas);
             JOptionPane.showMessageDialog(null, "Acertou!");
+            int contador = this.contadorQ + 1;
+            InterfacePerguntas frame = new InterfacePerguntas(this.perguntas, contador);
+            frame.setVisible(true);
+            this.setVisible(false);
         }
         else {
             JOptionPane.showMessageDialog(null, "Errou!");
+            String gabarito = dao.gabarito(idQ);
+            JOptionPane.showMessageDialog(null, gabarito);
         }
 
     }//GEN-LAST:event_AlternativaAButtonActionPerformed
@@ -209,14 +246,26 @@ public class InterfacePerguntas extends javax.swing.JFrame {
     private void AlternativaDButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AlternativaDButtonActionPerformed
         DAO dao = new DAO();
         System.out.println(alternativaD);
-        if(dao.isRight(this.alternativaD) == 1) {
+        if(dao.isRight(this.alternativaD, this.idQ) == 1) {
             dao.pontuar(perguntas);
             JOptionPane.showMessageDialog(null, "Acertou!");
+            int contador = this.contadorQ + 1;
+            InterfacePerguntas frame = new InterfacePerguntas(this.perguntas, contador);
+            frame.setVisible(true);
+            this.setVisible(false);
         }
         else {
             JOptionPane.showMessageDialog(null, "Errou!");
+            String gabarito = dao.gabarito(idQ);
+            JOptionPane.showMessageDialog(null, gabarito);
         }
     }//GEN-LAST:event_AlternativaDButtonActionPerformed
+
+    private void VoltarButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_VoltarButtonActionPerformed
+        InterfaceMenu frame = new InterfaceMenu(perguntas);
+        frame.setVisible(true);
+        this.setVisible(false);
+    }//GEN-LAST:event_VoltarButtonActionPerformed
 
     /**
      * @param args the command line arguments
@@ -265,5 +314,6 @@ public class InterfacePerguntas extends javax.swing.JFrame {
     private javax.swing.JButton AlternativaDButton;
     private javax.swing.JLabel Enunciado;
     private javax.swing.JLabel PerguntaN;
+    private javax.swing.JButton VoltarButton;
     // End of variables declaration//GEN-END:variables
 }

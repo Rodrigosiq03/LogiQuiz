@@ -127,13 +127,14 @@ public class DAO {
     }
     
     
-    public int isRight(String alternativa) {
+    public int isRight(String alternativa, int idQuestao) {
         SQLConnection con = new SQLConnection();
         int isRight = 0;
-        String selectIsRight = "SELECT correta from alternativa where alternativa = ?";
+        String selectIsRight = "SELECT correta from alternativa where alternativa = ? and idQuestao = ?";
         try (Connection c2 = con.obtemConexao()) {
             PreparedStatement ps = c2.prepareStatement(selectIsRight);
             ps.setString(1, alternativa);
+            ps.setInt(2, idQuestao);
             ResultSet rs = ps.executeQuery();
             if (rs.next()) {
                 isRight = rs.getInt("correta");
@@ -145,6 +146,49 @@ public class DAO {
         }
         System.out.println(isRight);
         return isRight;
+    }
+    
+    public String rank() throws Exception {
+        String aux = "";
+        String sqlusuario = "SELECT nome, pontos, RANK() OVER (ORDER BY pontos desc ) AS 'Rank' FROM usuario;";
+        SQLConnection con = new SQLConnection();
+        try ( Connection c2 = con.obtemConexao()) {
+            PreparedStatement ps = c2.prepareStatement(sqlusuario);
+            ResultSet rs = ps.executeQuery();
+            if (rs.next()) {
+                String alternativa = rs.getString(1);
+                aux = String.format(aux + alternativa + "\n") ;
+            } else {
+                String alternativa = "a";
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return aux;
+
+    }
+    
+    public String gabarito(int idQuestao) {
+        String aux = "";
+        String sqlusuario = "SELECT gabarito from exercicio where id_questao = ?;";
+        SQLConnection con = new SQLConnection();
+        try ( Connection c2 = con.obtemConexao()) {
+            PreparedStatement ps = c2.prepareStatement(sqlusuario);
+            ps.setInt(1, idQuestao);
+            ResultSet rs = ps.executeQuery();
+            if (rs.next()) {
+                String gabarito = rs.getString(1);
+                aux = String.format(aux + gabarito) ;
+            } else {
+                String gabarito = "a";
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return aux;
+
     }
 
 }

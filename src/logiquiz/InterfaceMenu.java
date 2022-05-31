@@ -4,10 +4,18 @@
  */
 package logiquiz;
 
-/**
- *
- * @author rodri
- */
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.Statement;
+import java.sql.DriverManager;
+import java.sql.SQLException;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.List;
+import java.util.Random;
+import javax.swing.JOptionPane;
+
 public class InterfaceMenu extends javax.swing.JFrame {
     Usuario menu;
     /**
@@ -17,6 +25,34 @@ public class InterfaceMenu extends javax.swing.JFrame {
         this.menu = usuario;
         initComponents();
         setExtendedState(InterfaceLogin.MAXIMIZED_BOTH);
+        DAO dao = new DAO();
+        try {
+            int pontos = dao.pontos(menu.getNome());
+            PontosLabel.setText("Pontos: " + pontos);
+        } catch (Exception e){
+            e.printStackTrace();
+        }
+        String[] test = new String[5];
+        int contador = 0;
+        SQLConnection con = new SQLConnection();
+        try (Connection c2 = con.obtemConexao()) {
+
+            Statement stmt = c2.createStatement();
+            String SQLTOP1 = "SELECT nome,pontos from usuario order by pontos desc limit 5;";
+            ResultSet rs = stmt.executeQuery(SQLTOP1);
+            while (rs.next()) {
+                test[contador++] = rs.getString("nome") + " - " + rs.getInt("pontos") + " pontos";
+
+            }
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+        top1.setText(test[0]);
+        top2.setText(test[1]);
+        top3.setText(test[2]);
+        top4.setText(test[3]);
+        top5.setText(test[4]);
+    
     }
 
     /**
@@ -28,15 +64,16 @@ public class InterfaceMenu extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jLabel1 = new javax.swing.JLabel();
         jButton1 = new javax.swing.JButton();
+        PontosLabel = new javax.swing.JLabel();
+        top1 = new javax.swing.JLabel();
+        top2 = new javax.swing.JLabel();
+        top3 = new javax.swing.JLabel();
+        top4 = new javax.swing.JLabel();
+        top5 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-
-        jLabel1.setFont(new java.awt.Font("Tahoma", 1, 96)); // NOI18N
-        jLabel1.setText("LogiQuiz - Menu");
-        getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(650, 40, -1, 170));
 
         jButton1.setFont(new java.awt.Font("Tahoma", 1, 60)); // NOI18N
         jButton1.setText("Iniciar Quiz!");
@@ -45,7 +82,31 @@ public class InterfaceMenu extends javax.swing.JFrame {
                 jButton1ActionPerformed(evt);
             }
         });
-        getContentPane().add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 310, 450, 140));
+        getContentPane().add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 290, 450, 140));
+
+        PontosLabel.setFont(new java.awt.Font("Tahoma", 1, 96)); // NOI18N
+        PontosLabel.setText("Pontos: ");
+        getContentPane().add(PontosLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 0, -1, 170));
+
+        top1.setFont(new java.awt.Font("Tahoma", 0, 36)); // NOI18N
+        top1.setText("1 - ");
+        getContentPane().add(top1, new org.netbeans.lib.awtextra.AbsoluteConstraints(1180, 180, -1, -1));
+
+        top2.setFont(new java.awt.Font("Tahoma", 0, 36)); // NOI18N
+        top2.setText("1 - ");
+        getContentPane().add(top2, new org.netbeans.lib.awtextra.AbsoluteConstraints(1180, 250, -1, -1));
+
+        top3.setFont(new java.awt.Font("Tahoma", 0, 36)); // NOI18N
+        top3.setText("1 - ");
+        getContentPane().add(top3, new org.netbeans.lib.awtextra.AbsoluteConstraints(1180, 330, -1, -1));
+
+        top4.setFont(new java.awt.Font("Tahoma", 0, 36)); // NOI18N
+        top4.setText("1 - ");
+        getContentPane().add(top4, new org.netbeans.lib.awtextra.AbsoluteConstraints(1180, 390, -1, -1));
+
+        top5.setFont(new java.awt.Font("Tahoma", 0, 36)); // NOI18N
+        top5.setText("1 - ");
+        getContentPane().add(top5, new org.netbeans.lib.awtextra.AbsoluteConstraints(1180, 460, -1, -1));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -53,7 +114,7 @@ public class InterfaceMenu extends javax.swing.JFrame {
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
         System.out.println(menu.getNome());
-        InterfacePerguntas frame = new InterfacePerguntas(this.menu);
+        InterfacePerguntas frame = new InterfacePerguntas(this.menu, 1);
         frame.setVisible(true);
         this.setVisible(false);
     }//GEN-LAST:event_jButton1ActionPerformed
@@ -94,7 +155,12 @@ public class InterfaceMenu extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JLabel PontosLabel;
     private javax.swing.JButton jButton1;
-    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel top1;
+    private javax.swing.JLabel top2;
+    private javax.swing.JLabel top3;
+    private javax.swing.JLabel top4;
+    private javax.swing.JLabel top5;
     // End of variables declaration//GEN-END:variables
 }
