@@ -127,11 +127,11 @@
         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
           <Font name="Tahoma" size="96" style="1"/>
         </Property>
-        <Property name="text" type="java.lang.String" value="LogiQuiz - Login"/>
+        <Property name="text" type="java.lang.String" value="LogiQuiz"/>
       </Properties>
       <Constraints>
         <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-          <AbsoluteConstraints x="490" y="20" width="800" height="120"/>
+          <AbsoluteConstraints x="690" y="30" width="420" height="120"/>
         </Constraint>
       </Constraints>
     </Component>

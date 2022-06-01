@@ -109,8 +109,8 @@ public class InterfaceLogin extends javax.swing.JFrame {
         getContentPane().add(BotaoConectar, new org.netbeans.lib.awtextra.AbsoluteConstraints(730, 570, -1, -1));
 
         jLabel3.setFont(new java.awt.Font("Tahoma", 1, 96)); // NOI18N
-        jLabel3.setText("LogiQuiz - Login");
-        getContentPane().add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(490, 20, 800, 120));
+        jLabel3.setText("LogiQuiz");
+        getContentPane().add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(690, 30, 420, 120));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents

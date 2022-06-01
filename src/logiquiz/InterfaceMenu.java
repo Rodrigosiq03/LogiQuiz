@@ -34,6 +34,7 @@ public class InterfaceMenu extends javax.swing.JFrame {
         }
         String[] test = new String[5];
         int contador = 0;
+        BemVindoLabel.setText("Bem vindo, " + menu.getNome());
         SQLConnection con = new SQLConnection();
         try (Connection c2 = con.obtemConexao()) {
 
@@ -64,29 +65,33 @@ public class InterfaceMenu extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jButton1 = new javax.swing.JButton();
+        RankingButton = new javax.swing.JButton();
         PontosLabel = new javax.swing.JLabel();
         top1 = new javax.swing.JLabel();
         top2 = new javax.swing.JLabel();
         top3 = new javax.swing.JLabel();
         top4 = new javax.swing.JLabel();
         top5 = new javax.swing.JLabel();
+        PontosLabel1 = new javax.swing.JLabel();
+        jButton2 = new javax.swing.JButton();
+        BemVindoLabel = new javax.swing.JLabel();
+        jButton3 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jButton1.setFont(new java.awt.Font("Tahoma", 1, 60)); // NOI18N
-        jButton1.setText("Iniciar Quiz!");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        RankingButton.setFont(new java.awt.Font("Tahoma", 1, 60)); // NOI18N
+        RankingButton.setText("Top-10");
+        RankingButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                RankingButtonActionPerformed(evt);
             }
         });
-        getContentPane().add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 290, 450, 140));
+        getContentPane().add(RankingButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 560, 450, 140));
 
         PontosLabel.setFont(new java.awt.Font("Tahoma", 1, 96)); // NOI18N
         PontosLabel.setText("Pontos: ");
-        getContentPane().add(PontosLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 0, -1, 170));
+        getContentPane().add(PontosLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 180, -1, 170));
 
         top1.setFont(new java.awt.Font("Tahoma", 0, 36)); // NOI18N
         top1.setText("1 - ");
@@ -108,16 +113,50 @@ public class InterfaceMenu extends javax.swing.JFrame {
         top5.setText("1 - ");
         getContentPane().add(top5, new org.netbeans.lib.awtextra.AbsoluteConstraints(1180, 460, -1, -1));
 
+        PontosLabel1.setFont(new java.awt.Font("Tahoma", 1, 96)); // NOI18N
+        PontosLabel1.setText("Rank");
+        getContentPane().add(PontosLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(1180, 40, -1, 170));
+
+        jButton2.setFont(new java.awt.Font("Tahoma", 1, 60)); // NOI18N
+        jButton2.setText("Sair");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
+        getContentPane().add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(1190, 560, 320, 140));
+
+        BemVindoLabel.setFont(new java.awt.Font("Tahoma", 1, 96)); // NOI18N
+        BemVindoLabel.setText("Bem vindo,");
+        getContentPane().add(BemVindoLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 50, -1, 170));
+
+        jButton3.setFont(new java.awt.Font("Tahoma", 1, 60)); // NOI18N
+        jButton3.setText("Iniciar Quiz!");
+        jButton3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton3ActionPerformed(evt);
+            }
+        });
+        getContentPane().add(jButton3, new org.netbeans.lib.awtextra.AbsoluteConstraints(580, 560, 450, 140));
+
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        // TODO add your handling code here:
-        System.out.println(menu.getNome());
-        InterfacePerguntas frame = new InterfacePerguntas(this.menu, 1);
+    private void RankingButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_RankingButtonActionPerformed
+        InterfaceTop10 frame = new InterfaceTop10(menu);
         frame.setVisible(true);
         this.setVisible(false);
-    }//GEN-LAST:event_jButton1ActionPerformed
+    }//GEN-LAST:event_RankingButtonActionPerformed
+
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        InterfaceLogin frame = new InterfaceLogin();
+        frame.setVisible(true);
+        this.setVisible(false);
+    }//GEN-LAST:event_jButton2ActionPerformed
+
+    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButton3ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -155,8 +194,12 @@ public class InterfaceMenu extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JLabel BemVindoLabel;
     private javax.swing.JLabel PontosLabel;
-    private javax.swing.JButton jButton1;
+    private javax.swing.JLabel PontosLabel1;
+    private javax.swing.JButton RankingButton;
+    private javax.swing.JButton jButton2;
+    private javax.swing.JButton jButton3;
     private javax.swing.JLabel top1;
     private javax.swing.JLabel top2;
     private javax.swing.JLabel top3;

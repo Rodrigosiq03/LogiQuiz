@@ -17,6 +17,7 @@ import java.util.Random;
 import javax.swing.JOptionPane;
 
 public class InterfacePerguntas extends javax.swing.JFrame {
+
     Usuario perguntas;
     String alternativaA;
     String alternativaB;
@@ -30,7 +31,7 @@ public class InterfacePerguntas extends javax.swing.JFrame {
         this.perguntas = usuario;
         setExtendedState(InterfaceLogin.MAXIMIZED_BOTH);
         Random random = new Random();
-        idQ = random.nextInt(50)+1;
+        idQ = random.nextInt(50) + 1;
         this.idQ = idQ;
         this.contadorQ = numPergunta;
         PerguntaN.setText("Pergunta " + this.contadorQ);
@@ -43,12 +44,11 @@ public class InterfacePerguntas extends javax.swing.JFrame {
             List<Integer> intList = Arrays.asList(idArray);
             Collections.shuffle(intList);
             intList.toArray(idArray);
-            
-            
-            for (int i = 0;i<4;i++) {
-                idArray[i] = (idQ*4) + idArray[i];
+
+            for (int i = 0; i < 4; i++) {
+                idArray[i] = (idQ * 4) + idArray[i];
             }
-            
+
             Enunciado.setText("<html><p style=\"width:600px\">" + enunciado + "</p></html>");
             alternativaA = dao.alternativas(idArray[0]);
             this.alternativaA = dao.alternativas(idArray[0]);
@@ -67,6 +67,7 @@ public class InterfacePerguntas extends javax.swing.JFrame {
         } catch (Exception e) {
             System.out.println(e);
         }
+
     }
 
     /**
@@ -173,50 +174,61 @@ public class InterfacePerguntas extends javax.swing.JFrame {
     private void AlternativaBButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AlternativaBButtonActionPerformed
         DAO dao = new DAO();
         System.out.println(alternativaB);
-        if(dao.isRight(this.alternativaB, this.idQ) == 1) {
+        int contador = this.contadorQ + 1;
+        if (dao.isRight(this.alternativaB, this.idQ) == 1) {
             dao.pontuar(perguntas);
             JOptionPane.showMessageDialog(null, "Acertou!");
-            int contador = this.contadorQ + 1;
-            InterfacePerguntas frame = new InterfacePerguntas(this.perguntas, contador);
-            frame.setVisible(true);
-            this.setVisible(false);
-        }
-        else {
+        } else {
             JOptionPane.showMessageDialog(null, "Errou!");
             String gabarito = dao.gabarito(idQ);
             JOptionPane.showMessageDialog(null, gabarito);
+        }
+        if (contador < 16) {
+            InterfacePerguntas frame = new InterfacePerguntas(this.perguntas, contador);
+            frame.setVisible(true);
+            this.setVisible(false);
+        } else {
+            JOptionPane.showMessageDialog(null, "Round encerrado!");
+            InterfaceMenu frame = new InterfaceMenu(this.perguntas);
+            frame.setVisible(true);
+            this.setVisible(false);
         }
     }//GEN-LAST:event_AlternativaBButtonActionPerformed
 
     private void AlternativaCButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AlternativaCButtonActionPerformed
         DAO dao = new DAO();
         System.out.println(alternativaC);
-        if(dao.isRight(this.alternativaC, this.idQ) == 1) {
+        int contador = this.contadorQ + 1;
+        if (dao.isRight(this.alternativaC, this.idQ) == 1) {
             dao.pontuar(perguntas);
             JOptionPane.showMessageDialog(null, "Acertou!");
-            int contador = this.contadorQ + 1;
-            InterfacePerguntas frame = new InterfacePerguntas(this.perguntas, contador);
-            frame.setVisible(true);
-            this.setVisible(false);
-        }
-        else {
+        } else {
             JOptionPane.showMessageDialog(null, "Errou!");
             String gabarito = dao.gabarito(idQ);
             JOptionPane.showMessageDialog(null, gabarito);
+        }
+        if (contador < 16) {
+            InterfacePerguntas frame = new InterfacePerguntas(this.perguntas, contador);
+            frame.setVisible(true);
+            this.setVisible(false);
+        } else {
+            JOptionPane.showMessageDialog(null, "Round encerrado!");
+            InterfaceMenu frame = new InterfaceMenu(this.perguntas);
+            frame.setVisible(true);
+            this.setVisible(false);
         }
     }//GEN-LAST:event_AlternativaCButtonActionPerformed
 
     private void AlternativaCButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_AlternativaCButtonMouseClicked
         DAO dao = new DAO();
-        if(dao.isRight(this.alternativaC, this.idQ) == 1) {
+        if (dao.isRight(this.alternativaC, this.idQ) == 1) {
             dao.pontuar(perguntas);
             JOptionPane.showMessageDialog(null, "Acertou!");
             int contador = this.contadorQ + 1;
             InterfacePerguntas frame = new InterfacePerguntas(this.perguntas, contador);
             frame.setVisible(true);
             this.setVisible(false);
-        }
-        else {
+        } else {
             JOptionPane.showMessageDialog(null, "Errou!");
             String gabarito = dao.gabarito(idQ);
             JOptionPane.showMessageDialog(null, gabarito);
@@ -227,18 +239,24 @@ public class InterfacePerguntas extends javax.swing.JFrame {
     private void AlternativaAButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AlternativaAButtonActionPerformed
         DAO dao = new DAO();
         System.out.println(alternativaA);
-        if(dao.isRight(this.alternativaA, this.idQ) == 1) {
+        int contador = this.contadorQ + 1;
+        if (dao.isRight(this.alternativaA, this.idQ) == 1) {
             dao.pontuar(perguntas);
             JOptionPane.showMessageDialog(null, "Acertou!");
-            int contador = this.contadorQ + 1;
-            InterfacePerguntas frame = new InterfacePerguntas(this.perguntas, contador);
-            frame.setVisible(true);
-            this.setVisible(false);
-        }
-        else {
+        } else {
             JOptionPane.showMessageDialog(null, "Errou!");
             String gabarito = dao.gabarito(idQ);
             JOptionPane.showMessageDialog(null, gabarito);
+        }
+        if (contador < 16) {
+            InterfacePerguntas frame = new InterfacePerguntas(this.perguntas, contador);
+            frame.setVisible(true);
+            this.setVisible(false);
+        } else {
+            JOptionPane.showMessageDialog(null, "Round encerrado!");
+            InterfaceMenu frame = new InterfaceMenu(this.perguntas);
+            frame.setVisible(true);
+            this.setVisible(false);
         }
 
     }//GEN-LAST:event_AlternativaAButtonActionPerformed
@@ -246,18 +264,24 @@ public class InterfacePerguntas extends javax.swing.JFrame {
     private void AlternativaDButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AlternativaDButtonActionPerformed
         DAO dao = new DAO();
         System.out.println(alternativaD);
-        if(dao.isRight(this.alternativaD, this.idQ) == 1) {
+        int contador = this.contadorQ + 1;
+        if (dao.isRight(this.alternativaD, this.idQ) == 1) {
             dao.pontuar(perguntas);
             JOptionPane.showMessageDialog(null, "Acertou!");
-            int contador = this.contadorQ + 1;
-            InterfacePerguntas frame = new InterfacePerguntas(this.perguntas, contador);
-            frame.setVisible(true);
-            this.setVisible(false);
-        }
-        else {
+        } else {
             JOptionPane.showMessageDialog(null, "Errou!");
             String gabarito = dao.gabarito(idQ);
             JOptionPane.showMessageDialog(null, gabarito);
+        }
+        if (contador < 16) {
+            InterfacePerguntas frame = new InterfacePerguntas(this.perguntas, contador);
+            frame.setVisible(true);
+            this.setVisible(false);
+        } else {
+            JOptionPane.showMessageDialog(null, "Round encerrado!");
+            InterfaceMenu frame = new InterfaceMenu(this.perguntas);
+            frame.setVisible(true);
+            this.setVisible(false);
         }
     }//GEN-LAST:event_AlternativaDButtonActionPerformed
 

@@ -94,8 +94,8 @@ public class InterfaceRegistro extends javax.swing.JFrame {
         getContentPane().add(BotaoVoltar, new org.netbeans.lib.awtextra.AbsoluteConstraints(930, 640, 210, 70));
 
         jLabel3.setFont(new java.awt.Font("Tahoma", 1, 96)); // NOI18N
-        jLabel3.setText("LogiQuiz - Registre-se");
-        getContentPane().add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(440, 60, 1100, 120));
+        jLabel3.setText("Registre-se");
+        getContentPane().add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(510, 60, 590, 120));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
