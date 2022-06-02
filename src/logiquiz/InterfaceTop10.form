@@ -24,28 +24,24 @@
     <DimensionLayout dim="0">
       <Group type="103" groupAlignment="0" attributes="0">
           <Group type="102" attributes="0">
-              <Group type="103" groupAlignment="0" attributes="0">
-                  <Group type="102" attributes="0">
-                      <EmptySpace min="-2" pref="71" max="-2" attributes="0"/>
-                      <Component id="VoltarButton" min="-2" pref="93" max="-2" attributes="0"/>
-                  </Group>
-                  <Group type="102" alignment="0" attributes="0">
-                      <EmptySpace min="-2" pref="276" max="-2" attributes="0"/>
-                      <Group type="103" groupAlignment="0" attributes="0">
-                          <Component id="top5" min="-2" pref="871" max="-2" attributes="0"/>
-                          <Component id="top2" min="-2" pref="871" max="-2" attributes="0"/>
-                          <Component id="top3" alignment="0" min="-2" pref="871" max="-2" attributes="0"/>
-                          <Component id="top4" alignment="0" min="-2" pref="871" max="-2" attributes="0"/>
-                          <Component id="top6" alignment="0" min="-2" pref="871" max="-2" attributes="0"/>
-                          <Component id="top7" alignment="0" min="-2" pref="871" max="-2" attributes="0"/>
-                          <Component id="top8" alignment="0" min="-2" pref="871" max="-2" attributes="0"/>
-                          <Component id="top10" alignment="0" min="-2" pref="871" max="-2" attributes="0"/>
-                          <Component id="top9" alignment="0" min="-2" pref="871" max="-2" attributes="0"/>
-                          <Component id="top1" alignment="0" min="-2" pref="871" max="-2" attributes="0"/>
-                      </Group>
-                  </Group>
+              <EmptySpace min="-2" pref="71" max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                  <Component id="VoltarButton" min="-2" pref="93" max="-2" attributes="0"/>
+                  <Component id="top2" alignment="0" pref="667" max="32767" attributes="0"/>
+                  <Component id="top3" alignment="0" max="32767" attributes="0"/>
+                  <Component id="top4" alignment="0" max="32767" attributes="0"/>
+                  <Component id="top5" alignment="0" max="32767" attributes="0"/>
+                  <Component id="top1" alignment="0" max="32767" attributes="0"/>
               </Group>
-              <EmptySpace pref="773" max="32767" attributes="0"/>
+              <EmptySpace type="separate" max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="0" attributes="0">
+                  <Component id="top6" min="-2" pref="871" max="-2" attributes="0"/>
+                  <Component id="top7" min="-2" pref="871" max="-2" attributes="0"/>
+                  <Component id="top8" min="-2" pref="871" max="-2" attributes="0"/>
+                  <Component id="top9" min="-2" pref="871" max="-2" attributes="0"/>
+                  <Component id="top10" min="-2" pref="871" max="-2" attributes="0"/>
+              </Group>
+              <EmptySpace pref="293" max="32767" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -54,27 +50,33 @@
           <Group type="102" alignment="0" attributes="0">
               <EmptySpace min="-2" pref="54" max="-2" attributes="0"/>
               <Component id="VoltarButton" min="-2" pref="77" max="-2" attributes="0"/>
-              <EmptySpace min="-2" pref="18" max="-2" attributes="0"/>
-              <Component id="top1" min="-2" pref="91" max="-2" attributes="0"/>
-              <EmptySpace type="unrelated" max="-2" attributes="0"/>
-              <Component id="top2" min="-2" pref="91" max="-2" attributes="0"/>
+              <EmptySpace type="separate" max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="3" attributes="0">
+                  <Component id="top1" alignment="3" min="-2" pref="91" max="-2" attributes="0"/>
+                  <Component id="top6" alignment="3" min="-2" pref="91" max="-2" attributes="0"/>
+              </Group>
               <EmptySpace max="-2" attributes="0"/>
-              <Component id="top3" min="-2" pref="91" max="-2" attributes="0"/>
-              <EmptySpace max="-2" attributes="0"/>
-              <Component id="top4" min="-2" pref="91" max="-2" attributes="0"/>
-              <EmptySpace min="-2" pref="10" max="-2" attributes="0"/>
-              <Component id="top5" min="-2" pref="91" max="-2" attributes="0"/>
-              <EmptySpace max="-2" attributes="0"/>
-              <Component id="top6" min="-2" pref="91" max="-2" attributes="0"/>
-              <EmptySpace max="-2" attributes="0"/>
-              <Component id="top7" min="-2" pref="91" max="-2" attributes="0"/>
-              <EmptySpace max="-2" attributes="0"/>
-              <Component id="top8" min="-2" pref="91" max="-2" attributes="0"/>
-              <EmptySpace max="-2" attributes="0"/>
-              <Component id="top9" min="-2" pref="91" max="-2" attributes="0"/>
-              <EmptySpace max="-2" attributes="0"/>
-              <Component id="top10" min="-2" pref="91" max="-2" attributes="0"/>
-              <EmptySpace pref="58" max="32767" attributes="0"/>
+              <Group type="103" groupAlignment="0" attributes="0">
+                  <Group type="102" alignment="0" attributes="0">
+                      <Component id="top2" min="-2" pref="91" max="-2" attributes="0"/>
+                      <EmptySpace max="-2" attributes="0"/>
+                      <Component id="top3" min="-2" pref="91" max="-2" attributes="0"/>
+                      <EmptySpace min="-2" pref="2" max="-2" attributes="0"/>
+                      <Component id="top4" min="-2" pref="91" max="-2" attributes="0"/>
+                      <EmptySpace max="-2" attributes="0"/>
+                      <Component id="top5" min="-2" pref="91" max="-2" attributes="0"/>
+                  </Group>
+                  <Group type="102" alignment="0" attributes="0">
+                      <Component id="top7" min="-2" pref="91" max="-2" attributes="0"/>
+                      <EmptySpace max="-2" attributes="0"/>
+                      <Component id="top8" min="-2" pref="91" max="-2" attributes="0"/>
+                      <EmptySpace max="-2" attributes="0"/>
+                      <Component id="top9" min="-2" pref="91" max="-2" attributes="0"/>
+                      <EmptySpace max="-2" attributes="0"/>
+                      <Component id="top10" min="-2" pref="91" max="-2" attributes="0"/>
+                  </Group>
+              </Group>
+              <EmptySpace pref="551" max="32767" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
