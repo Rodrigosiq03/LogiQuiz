@@ -33,7 +33,7 @@ public class InterfaceAdmin extends javax.swing.JFrame {
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jLabel1.setFont(new java.awt.Font("Tahoma", 1, 96)); // NOI18N
-        jLabel1.setText("LogiQuiz - AdminMenu");
+        jLabel1.setText("AdminMenu");
         getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(650, 40, -1, 170));
 
         pack();

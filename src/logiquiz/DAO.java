@@ -88,19 +88,18 @@ public class DAO {
         return aux;
 
     }
-    
+
     public int pontos(String nome) {
         int pontos = 0;
         String sqlpontos = "SELECT pontos FROM usuario WHERE nome = ?";
         SQLConnection con = new SQLConnection();
-        try (Connection c2 = con.obtemConexao()) {
+        try ( Connection c2 = con.obtemConexao()) {
             PreparedStatement ps = c2.prepareStatement(sqlpontos);
             ps.setString(1, nome);
             ResultSet rs = ps.executeQuery();
             if (rs.next()) {
                 pontos = rs.getInt(1);
-            }
-            else {
+            } else {
                 pontos = 0;
             }
         } catch (Exception e) {
@@ -108,6 +107,7 @@ public class DAO {
         }
         return pontos;
     }
+
     public void pontuar(Usuario usuario) {
         DAO dao = new DAO();
         SQLConnection con = new SQLConnection();
@@ -125,13 +125,12 @@ public class DAO {
             System.out.println(ex);
         }
     }
-    
-    
+
     public int isRight(String alternativa, int idQuestao) {
         SQLConnection con = new SQLConnection();
         int isRight = 0;
         String selectIsRight = "SELECT correta from alternativa where alternativa = ? and idQuestao = ?";
-        try (Connection c2 = con.obtemConexao()) {
+        try ( Connection c2 = con.obtemConexao()) {
             PreparedStatement ps = c2.prepareStatement(selectIsRight);
             ps.setString(1, alternativa);
             ps.setInt(2, idQuestao);
@@ -140,14 +139,13 @@ public class DAO {
                 isRight = rs.getInt("correta");
                 System.out.println(isRight);
             }
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
         System.out.println(isRight);
         return isRight;
     }
-    
+
     public String rank() throws Exception {
         String aux = "";
         String sqlusuario = "SELECT nome, pontos, RANK() OVER (ORDER BY pontos desc ) AS 'Rank' FROM usuario;";
@@ -157,7 +155,7 @@ public class DAO {
             ResultSet rs = ps.executeQuery();
             if (rs.next()) {
                 String alternativa = rs.getString(1);
-                aux = String.format(aux + alternativa + "\n") ;
+                aux = String.format(aux + alternativa + "\n");
             } else {
                 String alternativa = "a";
             }
@@ -168,7 +166,7 @@ public class DAO {
         return aux;
 
     }
-    
+
     public String gabarito(int idQuestao) {
         String aux = "";
         String sqlusuario = "SELECT gabarito from exercicio where id_questao = ?;";
@@ -179,7 +177,7 @@ public class DAO {
             ResultSet rs = ps.executeQuery();
             if (rs.next()) {
                 String gabarito = rs.getString(1);
-                aux = String.format(aux + gabarito) ;
+                aux = String.format(aux + gabarito);
             } else {
                 String gabarito = "a";
             }
@@ -189,6 +187,29 @@ public class DAO {
         }
         return aux;
 
+    }
+
+    public Usuario[] obterUsuarios() throws Exception {
+        String sql = "SELECT * FROM usuario";
+        SQLConnection con = new SQLConnection();
+        try ( Connection conn = con.obtemConexao();  
+                PreparedStatement ps = conn.prepareStatement(sql,
+                        ResultSet.TYPE_SCROLL_INSENSITIVE,
+                        ResultSet.CONCUR_READ_ONLY);  
+                ResultSet rs = ps.executeQuery()) {
+
+            int totalDeUsuarios = rs.last() ? rs.getRow() : 0;
+           Usuario[] usuarios = new Usuario[totalDeUsuarios];
+            rs.beforeFirst();
+            int contador = 0;
+            while (rs.next()) {
+                int id = rs.getInt("id");
+                String nome = rs.getString("nome");
+                String senha = rs.getString("senha");
+                usuarios[contador++] = new Usuario(id, nome, senha);
+            }
+            return usuarios;
+        }
     }
 
 }
